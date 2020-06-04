@@ -1,0 +1,8 @@
+/root/Documents/felix/GenAssembly/GenAssembly/bin/Debug/netstandard2.0/GenAssembly.deps.json
+/root/Documents/felix/GenAssembly/GenAssembly/bin/Debug/netstandard2.0/GenAssembly.dll
+/root/Documents/felix/GenAssembly/GenAssembly/bin/Debug/netstandard2.0/GenAssembly.pdb
+/root/Documents/felix/GenAssembly/GenAssembly/obj/Debug/netstandard2.0/GenAssembly.csprojAssemblyReference.cache
+/root/Documents/felix/GenAssembly/GenAssembly/obj/Debug/netstandard2.0/GenAssembly.AssemblyInfoInputs.cache
+/root/Documents/felix/GenAssembly/GenAssembly/obj/Debug/netstandard2.0/GenAssembly.AssemblyInfo.cs
+/root/Documents/felix/GenAssembly/GenAssembly/obj/Debug/netstandard2.0/GenAssembly.dll
+/root/Documents/felix/GenAssembly/GenAssembly/obj/Debug/netstandard2.0/GenAssembly.pdb
