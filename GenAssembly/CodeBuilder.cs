@@ -80,6 +80,18 @@ namespace GenAssembly
             return this;
         }
 
+        public CodeBuilder AddAssemblyRefence(params Assembly[] refenceAssemblyNamesOrFiles)
+        {
+            if (refenceAssemblyNamesOrFiles == null || refenceAssemblyNamesOrFiles.Length == 0) return this;
+            var dllFiles = new List<string>();
+            foreach (var assembly in refenceAssemblyNamesOrFiles)
+            {
+                dllFiles.Add(assembly.FullName);
+            }
+            return AddAssemblyRefence(dllFiles.ToArray());
+        }
+
+
         public static void AddFixedAssemblyRefence(params string[] fixedAssemblyNamesOrFiles)
         {
             if (fixedAssemblyNamesOrFiles == null || fixedAssemblyNamesOrFiles.Length == 0) return;
