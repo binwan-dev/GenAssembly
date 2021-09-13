@@ -10,16 +10,20 @@ namespace GenAssembly.Descripters
     {
         private StringBuilder _codeBuilder;
         private string _code;
+        private readonly ClassDescripter _class;
 
-        public MethodDescripter(string name, bool isAsync = false)
+        public MethodDescripter(string name, ClassDescripter @class, bool isAsync = false)
         {
             Name = name;
             IsAsync = isAsync;
             ReturnStr = "void";
             Access = AccessType.Public;
+            _class = @class;
         }
 
         public string Name { get; set; }
+
+        public ClassDescripter Class => _class;
 
         public AccessType Access { get; set; }
 
