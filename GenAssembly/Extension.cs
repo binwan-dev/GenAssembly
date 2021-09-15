@@ -1,10 +1,12 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using GenAssembly.Descripters;
 
 namespace GenAssembly
 {
     public static class Extension
     {
+        
         public static string ToAccessCode(this AccessType access)
         {
             switch (access)
@@ -15,9 +17,9 @@ namespace GenAssembly
             return "";
         }
 
-        public static string ToParameterCode(this ParameterDescripter[] parameters)
+        public static string ToParameterCode(this IList<ParameterDescripter> parameters)
         {
-            if (parameters == null || parameters.Length == 0) return string.Empty;
+            if (parameters == null || parameters.Count == 0) return string.Empty;
 
             var strCode = new StringBuilder();
             foreach (var param in parameters)
@@ -28,9 +30,9 @@ namespace GenAssembly
             return strCode.ToString();
         }
 
-        public static string ToTypeParamConstraintCode(this TypeParameterDescripter[] typeParameters)
+        public static string ToTypeParamConstraintCode(this IList<TypeParameterDescripter> typeParameters)
         {
-            if (typeParameters == null || typeParameters.Length == 0) return string.Empty;
+            if (typeParameters == null || typeParameters.Count == 0) return string.Empty;
 
             var strCode = new StringBuilder();
             foreach (var param in typeParameters)

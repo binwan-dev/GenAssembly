@@ -16,22 +16,27 @@ namespace GenAssembly.Descripters
         {
             Name = name;
             IsAsync = isAsync;
-            ReturnStr = "void";
+            ReturnTypeStr = "void";
             Access = AccessType.Public;
             _class = @class;
+
+            RefenceTypes=new List<Type>();
+            Parameters=new List<ParameterDescripter>();
+            Attributes=new List<AttributeDescripter>();
+            TypeParameters=new List<TypeParameterDescripter>();
         }
 
         public string Name { get; set; }
 
-        public ClassDescripter Class => _class;
-
         public AccessType Access { get; set; }
 
-        public IList<Type> RefenceTypes { get; set; }
+        public IList<Type> RefenceTypes { get; }
 
-        public string ReturnStr { get; set; }
+        public string ReturnTypeStr { get; set; }
 
-        public ParameterDescripter[] Parameters { get; set; }
+        public IList<ParameterDescripter> Parameters { get; }
+
+        public List<AttributeDescripter> Attributes { get; }
 
         public string Code
         {
@@ -45,47 +50,17 @@ namespace GenAssembly.Descripters
 
         public bool IsAsync { get; set; }
 
-        public TypeParameterDescripter[] TypeParameters { get; private set; }
+        public IList<TypeParameterDescripter> TypeParameters { get; }
 
-        public MethodDescripter SetAccess(AccessType access)
+        public MethodDescripter SetReturnType(string returnTypeStr)
         {
-            Access = access;
+            ReturnTypeStr=returnTypeStr;
             return this;
         }
-
-        public MethodDescripter SetCode(string code)
+        
+        public MethodDescripter SetReturnType(Type returnType)
         {
-            _code = code;
-            return this;
-        }
-
-        public MethodDescripter SetParams(params ParameterDescripter[] parameters)
-        {
-            Parameters = parameters;
-            return this;
-        }
-
-        public MethodDescripter SetReturn(Type returnType)
-        {
-            ReturnStr = returnType.Name;
-            return this;
-        }
-
-        public MethodDescripter SetReturn(string returnStr)
-        {
-            ReturnStr = returnStr;
-            return this;
-        }
-
-        public MethodDescripter SetReferenceType(params Type[] types)
-        {
-            RefenceTypes = types;
-            return this;
-        }
-
-        public MethodDescripter SetTypeParameters(params TypeParameterDescripter[] typeParameters)
-        {
-            TypeParameters = typeParameters;
+            ReturnTypeStr=returnType.Name;
             return this;
         }
 
@@ -107,13 +82,24 @@ namespace GenAssembly.Descripters
         {
             var strCode = new StringBuilder();
 
+            strCode.Append(ToAttributes());
             strCode.Append($"        {Access.ToAccessCode()} ");
             if (IsAsync) strCode.Append("async ");
-            strCode.AppendLine($"{ReturnStr} {Name}({Parameters.ToParameterCode()}){TypeParameters.ToTypeParamConstraintCode()}");
+            strCode.AppendLine($"{ReturnTypeStr} {Name}({Parameters.ToParameterCode()}){TypeParameters.ToTypeParamConstraintCode()}");
             strCode.AppendLine("        {");
             strCode.AppendLine($"            {Code}");
             strCode.AppendLine("        }");
 
+            return strCode.ToString();
+        }
+
+        private string ToAttributes()
+        {
+            var strCode=new StringBuilder("");
+            foreach(var attribute in Attributes)
+            {
+                strCode.AppendLine($"        {attribute.ToString()}");
+            }
             return strCode.ToString();
         }
     }
