@@ -166,7 +166,8 @@ namespace GenAssembly
                 {
                     issues.AppendLine($@"ID: {codeIssue.Id}, Message: {codeIssue.GetMessage()},
                                         Location: { codeIssue.Location.GetLineSpan()},
-                                        Severity: { codeIssue.Severity}
+                                        Severity: { codeIssue.Severity},
+                                        Source: {codeIssue.Location.SourceSpan}
                                                 ");
                 }
                 if (File.Exists(dllPath)) File.Delete(dllPath);
