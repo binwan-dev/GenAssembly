@@ -163,11 +163,11 @@ namespace GenAssembly
             {
                 var issues = new StringBuilder();
                 foreach (Diagnostic codeIssue in compilationResult.Diagnostics)
-                {
+                { 
                     issues.AppendLine($@"ID: {codeIssue.Id}, Message: {codeIssue.GetMessage()},
                                         Location: { codeIssue.Location.GetLineSpan()},
                                         Severity: { codeIssue.Severity},
-                                        Source: {codeIssue.Location.SourceSpan}
+                                        Source: {codeIssue.Location?.SourceTree.FilePath}
                                                 ");
                 }
                 if (File.Exists(dllPath)) File.Delete(dllPath);
