@@ -139,9 +139,18 @@ namespace GenAssembly
             foreach (var item in _classes)
             {
                 var code = item.ToString();
-                File.WriteAllText($"{CodeCachePath}/{item.Name}.cs", code);
+                var namespaceDirPath = CreateAndGetDirFromNamespace(item, CodeCachePath);
+                File.WriteAllText($"{namespaceDirPath}/{item.Name}.cs", code);
                 yield return SyntaxFactory.ParseSyntaxTree(code);
             }
+        }
+
+        private string CreateAndGetDirFromNamespace(ClassDescripter _class,string prefix)
+        {
+            var dirPath = Path.Combine(prefix,"/", _class.Namespace.Replace(".", "/"));
+	    if(!Directory.Exists(dirPath))
+                Directory.CreateDirectory(dirPath);
+            return dirPath;
         }
 
         private void Compile(string dllPath, string pdbPath)
