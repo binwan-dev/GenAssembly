@@ -52,6 +52,12 @@ namespace GenAssembly.Descripters
 
         public IList<TypeParameterDescripter> TypeParameters { get; }
 
+        public MethodDescripter SetAccess(AccessType access)
+        {
+            Access = access;
+            return this;
+        }
+
         public MethodDescripter SetReturnType(string returnTypeStr)
         {
             ReturnTypeStr=returnTypeStr;

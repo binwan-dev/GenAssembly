@@ -147,7 +147,7 @@ namespace GenAssembly
 
         private string CreateAndGetDirFromNamespace(ClassDescripter _class,string prefix)
         {
-            var dirPath = Path.Combine(prefix,"/", _class.Namespace.Replace(".", "/"));
+            var dirPath = Path.Combine(prefix, _class.Namespace.Replace(".", "/"));
 	    if(!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath);
             return dirPath;
@@ -201,6 +201,7 @@ namespace GenAssembly
             dllFiles.Add($"{sysdllDirectory}/System.Private.CoreLib.dll");
             dllFiles.Add($"{sysdllDirectory}/System.Runtime.dll");
             dllFiles.Add($"{sysdllDirectory}/System.ComponentModel.dll");
+            dllFiles.Add(typeof(Console).Assembly.Location);
             dllFiles.Add(Assembly.GetExecutingAssembly().Location);
             dllFiles.Add(typeof(CodeBuilder).Assembly.Location);
 
