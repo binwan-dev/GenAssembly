@@ -48,6 +48,8 @@ namespace GenAssembly.Descripters
 
         public string[] BaseTypes { get; private set; }
 
+        public bool IsRecord {get;private set;}
+
         public List<ConstructorDescripter> Constructors { get; private set; }
 
         public List<FieldDescripter> Fields { get; private set; }
@@ -108,6 +110,12 @@ namespace GenAssembly.Descripters
             return this;
         }
 
+        public ClassDescripter SetRecord()
+        {
+            IsRecord = true;
+            return this;
+        }
+
         public override string ToString()
         {
             if (!string.IsNullOrWhiteSpace(_code)) return _code;
@@ -126,15 +134,16 @@ namespace GenAssembly.Descripters
             }
             classStr.AppendLine($"namespace {Namespace}");
             classStr.AppendLine("{");
-            classStr.Append($"    {Access.ToAccessCode()} class {Name}");
+            var classType = IsRecord ? "record" : "class";
+            classStr.Append($"    {Access.ToAccessCode()} {classType} {Name}");
             if (BaseTypes != null && BaseTypes.Length > 0)
             {
-                classStr.Append(":");
+                classStr.Append(" : ");
                 foreach (var baseType in BaseTypes)
                 {
-                    classStr.Append($"{baseType},");
+                    classStr.Append($"{baseType}, ");
                 }
-                classStr = classStr.Remove(classStr.Length - 1, 1);
+                classStr = classStr.Remove(classStr.Length - 2, 2);
             }
             classStr.AppendLine();
             classStr.AppendLine("    {");

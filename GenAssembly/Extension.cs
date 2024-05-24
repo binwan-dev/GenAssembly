@@ -13,6 +13,22 @@ namespace GenAssembly
             {
                 case AccessType.Public:
                     return "public";
+                case AccessType.Private:
+                    return "private";
+                case AccessType.Protected:
+                    return "protected";
+                case AccessType.PublicReadonly:
+                    return "public readonly";
+                case AccessType.PublicStatic:
+                    return "public static";
+                case AccessType.PublicConst:
+                    return "public const";
+                case AccessType.PrivateReadonly:
+                    return "private readonly";
+                case AccessType.PrivateStatic:
+                    return "private static";
+                case AccessType.PrivateConst:
+                    return "private const";
             }
             return "";
         }

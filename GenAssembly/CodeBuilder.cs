@@ -20,9 +20,9 @@ namespace GenAssembly
         private string _name;
         private string _namespace;
 
-        public const string DefaultNamespace = "Atlantis.Common.CodeGeneration";
-        public static readonly string DllCachePath = ".builder-cache/dlls/";
-        public static readonly string CodeCachePath = ".builder-cache/codes";
+        public const string DefaultNamespace = "GenAssembly.CodeGeneration";
+        public static string DllCachePath = ".builder-cache/dlls/";
+        public static string CodeCachePath = ".builder-cache/codes";
 
         static CodeBuilder()
         {
@@ -105,8 +105,11 @@ namespace GenAssembly
         public Task<CodeAssembly> BuildAsync()
         {
             // var strCode = BuildCode();
-            var dllPath = Path.Combine(Environment.CurrentDirectory, $"{_name}_dll");
-            var pdbPath = Path.Combine(Environment.CurrentDirectory, $"{_name}.pdb");
+            if (!Directory.Exists(DllCachePath)) Directory.CreateDirectory(DllCachePath);
+            if (!Directory.Exists(CodeCachePath)) Directory.CreateDirectory(CodeCachePath);
+            
+            var dllPath = Path.Combine(CodeCachePath, $"{_name}_dll");
+            var pdbPath = Path.Combine(CodeCachePath, $"{_name}.pdb");
 
             // if (IsReCompile(codePath, dllPath, strCode))
             // {

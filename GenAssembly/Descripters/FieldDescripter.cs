@@ -39,7 +39,7 @@ namespace GenAssembly.Descripters
 
         public override string ToString()
         {
-            var code = string.IsNullOrWhiteSpace(Code) ? "" : $"={Code}";
+            var code = string.IsNullOrWhiteSpace(Code) ? "" : $" = {Code}";
             return $"        {Access.ToAccessCode()} {FieldType.Name} {Name}{code};";
         }
     }
