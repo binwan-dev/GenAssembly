@@ -21,13 +21,14 @@ namespace GenAssembly
         private string _namespace;
 
         public const string DefaultNamespace = "GenAssembly.CodeGeneration";
-        public static string DllCachePath = ".builder-cache/dlls/";
-        public static string CodeCachePath = ".builder-cache/codes";
+        
+        public static string DllCachePath { get; set; }= ".builder-cache/dlls/";
+        public static string CodeCachePath { get; set; }= ".builder-cache/codes";
 
         static CodeBuilder()
         {
-            DllCachePath = Path.Combine(Environment.CurrentDirectory, DllCachePath);
-            CodeCachePath = Path.Combine(Environment.CurrentDirectory, CodeCachePath);
+            DllCachePath = $"{Environment.CurrentDirectory}/{DllCachePath}";
+            CodeCachePath = $"{Environment.CurrentDirectory}/{CodeCachePath}";
         }
 
         public CodeBuilder(string name, string namespaces = DefaultNamespace)
@@ -148,10 +149,10 @@ namespace GenAssembly
             }
         }
 
-        private string CreateAndGetDirFromNamespace(ClassDescripter _class,string prefix)
+        private string CreateAndGetDirFromNamespace(ClassDescripter _class, string prefix)
         {
             var dirPath = Path.Combine(prefix, _class.Namespace.Replace(".", "/"));
-	    if(!Directory.Exists(dirPath))
+            if (!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath);
             return dirPath;
         }
